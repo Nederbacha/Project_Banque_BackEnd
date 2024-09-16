@@ -1,0 +1,46 @@
+
+<div class="container mt-5">
+  <h2>Lists Des Customers</h2>
+
+  <form class="d-flex"  [formGroup]="searchCustomerForm"   (ngSubmit)="hendlSearchCustomer()" >
+    <label class="input-group-text" >Search :</label>
+    <input class="form-control md-6" type="search" placeholder="Search" aria-label="Search"  formControlName="keyWordInput"  >
+
+    <button class="btn btn-outline-success"   >Search</button>
+  </form>
+
+  <ng-container *ngIf="customers | async as listsCustomers,else  failer" >
+    <table class="table table-bordered"  *ngIf="customers">
+
+      <thead class="thead-light">
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Nom</th>
+        <th scope="col">Email</th>
+
+      </tr>
+      </thead>
+      <tbody  *ngFor="let c of customers | async">
+      <tr>
+        <th>{{c.id}}</th>
+        <th>{{c.name}}</th>
+        <th>{{c.email}}</th>
+        <th>
+          <button (click)="deleteCustomer(c)"  type="button" class="btn btn-danger" >Delete</button>
+        </th>
+      </tr>
+      </tbody>
+    </table>
+
+  </ng-container>
+  <ng-template #failer >
+    <div  class="text-danger">
+      {{errorMessage}}
+</div>
+  </ng-template>
+
+
+
+</div>
+
+
